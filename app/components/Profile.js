@@ -33,12 +33,15 @@ const Profile = React.createClass({
         };
         firebase.initializeApp(config);
 
-
-        const childRef = firebase.database().ref("users").child(this.props.params.username).child("Notes");
+        this.ref = firebase.database().ref("users").child(this.props.params.username);
+        const childRef = this.ref.child("Notes");
         this.bindAsArray(childRef, 'notes');
     },
     componentWillUnmount() {
         this.unbind('notes');
+    },
+    handleAddNote: function(newNote) {
+        this.ref.child("Notes").child(this.state.notes.length).set(newNote);
     },
     render() {
         return (
@@ -50,7 +53,9 @@ const Profile = React.createClass({
                     <Repos username={this.props.params.username} repos={this.state.repos}/>
                 </div>
                 <div className="col-md-4">
-                    <Notes username={this.props.params.username} notes={this.state.notes}/>
+                    <Notes username={this.props.params.username}
+                           notes={this.state.notes}
+                           addNote={this.handleAddNote}/>
                 </div>
             </div>
         )
