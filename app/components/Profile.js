@@ -4,6 +4,7 @@ import Repos from "./Github/Repos";
 import Notes from "./Notes/Notes";
 import ReactFireMixin from 'reactfire';
 import * as firebase from "firebase";
+import helpers from '../utils/helpers';
 
 // getInitialState
 // display variable in jsx is using {}
@@ -14,6 +15,8 @@ import * as firebase from "firebase";
 // will use Repos, UserProfile and Notes child components
 
 // mixins: take the this instance and add functions from reactfire on to that
+
+// helpers promise uses Axios to make rest call
 const Profile = React.createClass({
     mixins: [ReactFireMixin],
     getInitialState() {
@@ -27,7 +30,7 @@ const Profile = React.createClass({
     },
     componentDidMount() {
         const config = {
-            apiKey: "",
+            apiKey: "AIzaSyDJGCMcCm-LA8Y657ujBFxVY3x6jEvIJRY",
             authDomain: "first-react-app-82694.firebaseapp.com",
             databaseURL: 'https://first-react-app-82694.firebaseio.com/'
         };
@@ -36,6 +39,13 @@ const Profile = React.createClass({
         this.ref = firebase.database().ref("users").child(this.props.params.username);
         const childRef = this.ref.child("Notes");
         this.bindAsArray(childRef, 'notes');
+
+        helpers.getGithubInfo(this.props.params.username).then((data) => {
+            this.setState({
+                bio: data.bio,
+                repos: data.repos
+            });
+        });
     },
     componentWillUnmount() {
         this.unbind('notes');
