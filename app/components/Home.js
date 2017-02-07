@@ -1,7 +1,7 @@
 import React from "react";
 
 // use className not class
-const Home = React.createClass({
+export default class Home extends React.Component {
     render() {
         return (
             <h2 className="text-center">
@@ -9,6 +9,4 @@ const Home = React.createClass({
             </h2>
         )
     }
-});
-
-export default Home;
+}

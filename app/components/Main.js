@@ -2,7 +2,7 @@ import React from "react";
 import SearchGithub from './SearchGithub';
 
 // since using createClass, render needs to be function declaration (render() {} or render: function {}) instead of arrow function
-const Main = React.createClass({
+export default class Main extends React.Component {
     render() {
         return (
             <div className="main-container">
@@ -17,6 +17,4 @@ const Main = React.createClass({
             </div>
         )
     }
-});
-
-export default Main;
+}
