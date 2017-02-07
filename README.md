@@ -1,2 +1,2 @@
 # first-react-app
-first-react app
+Note taker Github application

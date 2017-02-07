@@ -4,12 +4,7 @@ import AddNote from './AddNote';
 
 // notes come from Profile -> Notes -> NoteList
 // import path should be './NoteList', not 'NoteList', because ./ indicates our own staff, otherwise it's react lib staff
-const Notes = React.createClass({
-    propTypes: {
-        username: React.PropTypes.string.isRequired,
-        notes: React.PropTypes.array.isRequired,
-        addNote: React.PropTypes.func.isRequired
-    },
+export default class Notes extends React.Component {
     render() {
         return (
             <div>
@@ -19,6 +14,10 @@ const Notes = React.createClass({
             </div>
         )
     }
-});
+}
 
-export default Notes;
+Notes.propTypes = {
+    username: React.PropTypes.string.isRequired,
+    notes: React.PropTypes.array.isRequired,
+    addNote: React.PropTypes.func.isRequired
+};

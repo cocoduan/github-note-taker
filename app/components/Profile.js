@@ -4,7 +4,7 @@ import Repos from "./Github/Repos";
 import Notes from "./Notes/Notes";
 import ReactFireMixin from 'reactfire';
 import * as firebase from "firebase";
-import helpers from '../utils/helpers';
+import getGithubInfo from '../utils/helpers';
 
 // getInitialState
 // display variable in jsx is using {}
@@ -60,7 +60,7 @@ const Profile = React.createClass({
         const childRef = this.ref.child("Notes");
         this.bindAsArray(childRef, 'notes');
 
-        helpers.getGithubInfo(username).then((data) => {
+        getGithubInfo(username).then((data) => {
             this.setState({
                 bio: data.bio,
                 repos: data.repos
