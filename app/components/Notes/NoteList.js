@@ -9,7 +9,7 @@ export default class NoteList extends React.Component {
     render() {
         // console.log(this.props.notes);
         let {notes} = this.props;
-        notes = notes.map((note, index) => <li className="list-group-item" key={index}>{note['.value']}</li>);
+        notes = notes.map((note, index) => <li className="list-group-item" key={index}>{note}</li>);
 
         return (
             <ul className="list-group">
