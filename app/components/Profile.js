@@ -17,6 +17,8 @@ import helpers from '../utils/helpers';
 // mixins: take the this instance and add functions from reactfire on to that
 
 // helpers promise uses Axios to make rest call
+
+// componentWillReceiveProps: when props update happens i.e. router changes
 const Profile = React.createClass({
     mixins: [ReactFireMixin],
     getInitialState() {
@@ -36,23 +38,36 @@ const Profile = React.createClass({
         };
         firebase.initializeApp(config);
 
-        this.ref = firebase.database().ref("users").child(this.props.params.username);
+        this.init(this.props.params.username);
+    },
+
+    componentWillUnmount() {
+        this.unbind('notes');
+    },
+
+    componentWillReceiveProps(nextProps) {
+        // console.log("nextProps is : ", nextProps);
+        this.unbind('notes');
+        this.init(nextProps.params.username);
+    },
+
+    handleAddNote: function(newNote) {
+        this.ref.child("Notes").child(this.state.notes.length).set(newNote);
+    },
+
+    init(username) {
+        this.ref = firebase.database().ref("users").child(username);
         const childRef = this.ref.child("Notes");
         this.bindAsArray(childRef, 'notes');
 
-        helpers.getGithubInfo(this.props.params.username).then((data) => {
+        helpers.getGithubInfo(username).then((data) => {
             this.setState({
                 bio: data.bio,
                 repos: data.repos
             });
         });
     },
-    componentWillUnmount() {
-        this.unbind('notes');
-    },
-    handleAddNote: function(newNote) {
-        this.ref.child("Notes").child(this.state.notes.length).set(newNote);
-    },
+
     render() {
         return (
             <div className="row">

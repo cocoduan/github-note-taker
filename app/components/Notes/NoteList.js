@@ -4,7 +4,7 @@ import React from "react";
 // common mistake: return () not return {}
 const NoteList = React.createClass({
     render() {
-        console.log(this.props.notes);
+        // console.log(this.props.notes);
         const notes = this.props.notes.map((note, index) => {
             return <li className="list-group-item" key={index}>{note['.value']}</li>
         });
