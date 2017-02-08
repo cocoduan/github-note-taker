@@ -1,2 +1,2 @@
-# first-react-app
-Note taker Github application
+# github-note-taker
+github note taker application
