@@ -5,16 +5,17 @@ import React from "react";
 
 // const {notes} = this.props; destruct object!!
 
-export default class NoteList extends React.Component {
-    render() {
-        // console.log(this.props.notes);
-        let {notes} = this.props;
-        notes = notes.map((note, index) => <li className="list-group-item" key={index}>{note}</li>);
+// use light weight functions to return whatever the dom looks like
 
-        return (
-            <ul className="list-group">
-                {notes}
-            </ul>
-        )
-    }
-}
+const NoteList = ({notes}) => {
+    return (
+        <ul className="list-group">
+            {notes.map((note, index) => (
+                <li className="list-group-item" key={index}>{note}</li>
+            ))}
+        </ul>
+    )
+
+};
+
+export default NoteList;
